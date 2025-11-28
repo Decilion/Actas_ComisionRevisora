@@ -598,6 +598,13 @@ def render_sidebar(stats: Dict) -> Tuple[str, Dict]:
         else: # Decision Mode
             st.subheader("Filtros de Decisiones")
 
+            # Warning about limited data
+            st.warning(
+                "**Modo Experimental:** Esta base de datos contiene solo ~250 decisiones "
+                "extraídas de un subconjunto de actas. Para búsquedas completas, use el "
+                "modo 'General' que incluye las 1,770 actas completas."
+            )
+
             filters['sala'] = st.selectbox("Comité", ["Todos", "SEM", "SEMPB", "SEMNNIMB", "CR", "SEMH", "SEPFSD"])
             filters['outcome'] = st.selectbox("Resultado", ["Todos", "Aprobada", "No Recomendada", "Aplazada", "No Aplica", "Otro"])
             filters['request_type'] = st.selectbox("Tipo Solicitud", ["Todos", "Exclusión", "Inclusión", "Otro"])
