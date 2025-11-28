@@ -837,8 +837,7 @@ def render_trend_chart(data: pd.DataFrame, query: str):
         labelColor='#94a3b8',
         titleColor='#94a3b8'
     ).configure_view(
-        strokeWidth=0,
-        padding={'left': 20, 'right': 20, 'top': 20, 'bottom': 5}
+        strokeWidth=0
     )
 
     st.altair_chart(chart, use_container_width=True)
