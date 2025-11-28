@@ -600,7 +600,7 @@ def render_sidebar(stats: Dict) -> Tuple[str, Dict]:
 
             # Info about structured search mode
             st.info(
-                "**Modo Decisiones:** Busca en ~56,000 decisiones estructuradas extraídas "
+                "**Modo Decisiones:** Busca en ~55,000 decisiones estructuradas extraídas "
                 "de las 1,770 actas (1996-2025). Permite filtrar por resultado y tipo de solicitud."
             )
 
