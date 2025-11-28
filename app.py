@@ -880,26 +880,29 @@ def render_search_results(results: List, total: int, query: str, mode: str, page
     total_pages = (total + per_page - 1) // per_page
 
     # Results list
-    for item in results:
+    for idx, item in enumerate(results):
         if mode == "General":
             acta_id, snippet, _, sala, year, num = item
 
-            st.markdown(f"""
-            <div class="custom-card result-card">
-                    <div class="result-card-meta">
-                        <span class="chip primary">{year}</span>
-                        <span class="chip accent">{sala}</span>
-                        <span class="chip">Acta {num}</span>
+            with st.container():
+                col1, col2 = st.columns([5, 1])
+                with col1:
+                    st.markdown(f"""
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">{year}</span>
+                        <span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">{sala}</span>
+                        <span style="background: #475569; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">Acta {num}</span>
                     </div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">
-                        <a class="result-card-title" href="?acta={acta_id}">📄 {acta_id}</a>
-                    </h3>
-                    <div style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 1rem; padding-left: 1rem; border-left: 3px solid var(--primary);">
+                    <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">📄 {acta_id}</div>
+                    <div style="color: #94a3b8; font-size: 0.9rem; padding-left: 1rem; border-left: 3px solid #6366f1;">
                         ...{snippet}...
                     </div>
-                    <a class="view-button" href="?acta={acta_id}">Ver Documento</a>
-                </div>
-            """, unsafe_allow_html=True)
+                    """, unsafe_allow_html=True)
+                with col2:
+                    if st.button("Ver", key=f"view_{acta_id}_{idx}", use_container_width=True):
+                        st.session_state.selected_acta = acta_id
+                        st.rerun()
+                st.divider()
 
         else: # Decision Mode
             d = item
